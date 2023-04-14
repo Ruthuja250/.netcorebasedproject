@@ -29,7 +29,7 @@ namespace HomeLoanapi.Models
         public string organisation { get; set; }
         public string employee_type { get; set; }
 
-        public int userid { get; set; }
+        public int id { get; set; }
 
         // Navigational Property
         public virtual Loandetails details { get; set; }

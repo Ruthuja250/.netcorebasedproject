@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup ,Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import ValidateForm from 'src/app/Helpers/validatteforms';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserStoreService } from 'src/app/services/user-store.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +14,7 @@ export class LoginComponent  implements OnInit {
   isText: boolean=false;
   eyeIcon:string="fa-eye-slash";
   loginForm!:FormGroup;
-  constructor(private fb: FormBuilder,private auth:AuthService, private router:Router){ }
+  constructor(private fb: FormBuilder,private auth:AuthService, private router:Router,private userStore:UserStoreService){ }
   ngOnInit(): void {
     this.loginForm =this.fb.group(
   {
@@ -35,6 +36,9 @@ export class LoginComponent  implements OnInit {
           alert(res.message);
           this.loginForm.reset();
           this.auth.storeToken(res.token);
+          const tokenPayload=this.auth.decodeToken();
+          this.userStore.setNameForStore(tokenPayload.name);
+          this.userStore.setRoleForStore(tokenPayload.role);
           this.router.navigate(['dashboard'])
         },
         error:(err)=>{

@@ -55,7 +55,8 @@ namespace HomeLoanapi
                     ValidateIssuerSigningKey=true,
                     IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryverysecret.....")),
                     ValidateIssuer=false,
-                    ValidateAudience=false
+                    ValidateAudience=false,
+                    ClockSkew=TimeSpan.Zero
 
                 };
             });
